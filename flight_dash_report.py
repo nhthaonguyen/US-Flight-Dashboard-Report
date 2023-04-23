@@ -11,7 +11,18 @@ from flask import Flask
 
 
 # Create application
-app = dash.Dash(__name__)
+class MainApplication:
+    def __init__(self):
+        self.__app = dash.Dash(
+            __name__,
+            use_pages=True,
+        )
+
+    def app(self):
+        return self.__app
+    
+Application = MainApplication()
+app = Application.app.server
 
 #Clear the layout and do not display exception till callback gets executed
 app.config.suppress_callback_exceptions = True
